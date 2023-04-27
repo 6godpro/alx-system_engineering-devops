@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# This script is displaying "Best School" 10 times, but displays "Hi" on the \
-9th iteration.
+# This script is displaying "Best School" 10 times, but displays "Hi" on th
+# 9th iteration.
+
 i=1
 while [ $i -lt 11 ]
       do

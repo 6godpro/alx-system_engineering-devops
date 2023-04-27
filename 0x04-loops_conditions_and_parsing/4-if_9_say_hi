@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-# This script is displaying "Best School" 10 times, but displays "Hi" on th
+# This script is displaying "Best School" 10 times, but displays "Hi" on the
 # 9th iteration.
 
 i=1
 while [ $i -lt 11 ]
       do
+        echo "Best School"
 	if [ $i = 9 ]
 	then
 	   echo "Hi"
-	else
-	   echo "Best School"
 	fi
 	i=$((i + 1))
 done

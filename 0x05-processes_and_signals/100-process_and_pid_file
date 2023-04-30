@@ -6,15 +6,14 @@
 # Displays "Y U no love me?!" when receiving a SIGINT signal
 # Deletes the file /var/run/myscript.pid and terminates itself when receiving a
 # SIGQUIT or SIGTERM signal
-# shellcheck disable=SC2009
 
 
 TMP_FILE="/var/run/myscript.pid"
 
-sudo touch "$TMP_FILE"
+echo "$$" > "$TMP_FILE"
 
 clean_up() {
-   echo "I hate kill command" ; sudo rm "$TMP_FILE"
+   rm "$TMP_FILE"
    exit
 }
 
@@ -22,5 +21,6 @@ while true; do
      echo "To infinity and beyond"
      sleep 2
      trap "echo Y U no love me?!" SIGINT
+     trap "echo I hate kill command" SIGTERM
      trap clean_up SIGQUIT SIGTERM
 done

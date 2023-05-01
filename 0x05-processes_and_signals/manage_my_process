@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Displays "I am alive indefinitely" and sleeps 2 seconds between each iteration
+
+
+while true; do
+      echo "I am alive" >> /tmp/my_process
+      sleep 2
+done

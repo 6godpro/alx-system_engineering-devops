@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Manages the script "manage_my_process".
-# This script takes the one argument.
+# This script takes one argument.
 #   * When the argument is `start`:
-#      1. Execute the manage_my_process script
-#      2. Create a file containing its own PID in /var/run/my_process.pid
+#      1. Executes the manage_my_process script
+#      2. Creates a file containing its own PID in /var/run/my_process.pid
 #      3. Displays "manage_my_process started"
 #   * When the argument is `stop`:
 #      1. Stops manage_my_process
@@ -12,8 +12,8 @@
 #   * When the argument is `restart`:
 #      1. Stops manage_my_process
 #      2. Deletes the file /var/run/my_process.pid
-#      3. Execute the manage_my_process script
-#      4. Create a file containing its own PID in /var/run/my_process.pid
+#      3. Executes the manage_my_process script
+#      4. Creates a file containing its own PID in /var/run/my_process.pid
 #      5. Displays "manage_my_process started"
 #   * If the command is none of these three(3):
 #      1. Display "Usage: manage_my_process {start|stop|restart}"
@@ -39,5 +39,5 @@ elif [ "$1" = "restart" ]; then
      echo "manage_my_process restarted"
 
 else
-	echo "Usage ./101-manage_my_process {start|stop|restart}"
+	echo "Usage: manage_my_process {start|stop|restart}"
 fi

@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 # This script displays all active IPv4 IPs on the machine it’s executed on.
 
-ipv4_regex="[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"
-while read -r line; do
-   if echo "$line" | grep -qE "$ipv4_regex"
-      then
-	echo "$line" | cut -d ' ' -f1
-   fi
-done < /etc/hosts
+ipv4_regex="inet (([0-9]{1,3}\.){3}[0-9]{1,3}).*"
+ifconfig | grep -oE "$ipv4_regex" | cut -d ' ' -f2

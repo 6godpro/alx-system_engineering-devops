@@ -40,6 +40,7 @@ exec { 'server block config':
 }" > /etc/nginx/sites-available/default',
 }
 
+# restart web server
 exec { 'restart':
   command => '/sbin/service nginx restart',
 }

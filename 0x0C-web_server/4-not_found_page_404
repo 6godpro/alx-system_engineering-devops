@@ -30,8 +30,9 @@ echo  "server {
       error_page 404 /error404.html;
 
       # disable error404.html page for external access
-      location /error404.html {
-      	       internal;
+      location = /error404.html {
+                  root /var/www/html;
+      	      internal;
       }
 }" > /etc/nginx/sites-available/default
 

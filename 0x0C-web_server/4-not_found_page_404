@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Installs and configures Nginx on a new Ubuntu machine.
-# Configures invalid pages to redirect to https://www.google.com
+# Configures redirect_me page to redirect to https://www.google.com
+# Invalid pages display `Ceci n'est pas une page` and return a 404 status code.
 
 # update machine and install nginx
 apt-get update -y
@@ -27,6 +28,8 @@ echo  "server {
       }
 
       error_page 404 /error404.html;
+
+      # disable error404.html page for external access
       location /error404.html {
       	       internal;
       }

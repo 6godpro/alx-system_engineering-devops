@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Installs and configures Nginx on a new Ubuntu machine.
-# Configures invalid pages to redirect to https://www.google.com
+# Configures redirect_me page to redirect to https://www.google.com
 
 # update machine and install nginx
 apt-get update -y

@@ -8,11 +8,19 @@ apt-get install nginx -y
 
 # update default html file that comes with nginx
 echo "Hello World!" | tee /var/www/html/* > /dev/null 2>&1
-# set nginx to listen on port 80
-ufw allow 'Nginx HTTP'
 
-# replace the default 404 status code for error_page with 301
-sed -i 's/=404;/=301 https:\/\/www.google.com;/g' /etc/nginx/sites-available/default
+# configure the server block
+echo  "server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+
+      root /var/www/html;
+      index index.html index.htm;
+
+      location /redirect_me {
+      	       return 301 https://www.google.com;
+      }
+}" > /etc/nginx/sites-available/default
 
 # restart nginx
 service nginx restart

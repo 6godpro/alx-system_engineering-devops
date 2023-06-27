@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Installs and configures Nginx on a new Ubuntu machine.
 
+# update machine and install nginx
 apt-get update -y
 apt-get install nginx -y
 
+# update default html file that comes with nginx
 echo "Hello World!" | tee /var/www/html/* > /dev/null 2>&1
-
+# set nginx to listen on port 80
 ufw allow 'Nginx HTTP'
 
+# restart nginx
 service nginx restart

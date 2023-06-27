@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Installs and configures Nginx on a new Ubuntu machine.
 
-apt-get install nginx -y && echo "Hello World!" | tee /var/www/html/* 2>&1 && /etc/init.d/nginx restart
+apt-get install nginx -y && echo "Hello World!" | tee /var/www/html/* 2>&1 && ufw allow 'Nginx HTTP' && /etc/init.d/nginx restart

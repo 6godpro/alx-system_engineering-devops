@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Installs and configures Nginx on a new Ubuntu machine.
+# Configures invalid pages to redirect to https://www.google.com
+
+# update machine and install nginx
+apt-get update -y
+apt-get install nginx -y
+
+# update default html file that comes with nginx
+echo "Hello World!" | tee /var/www/html/index.html > /dev/null 2>&1
+echo "Ceci n'est pas une page" | tee /var/www/html/error404.html > /dev/null 2>&1
+
+# configure the server block
+echo  "server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+
+      root /var/www/html;
+      index index.html index.htm;
+
+      location /redirect_me {
+      	       return 301 https://www.google.com;
+      }
+
+      location / {
+      	       try_files \$uri \$uri/ =404;
+      }
+
+      error_page 404 /error404.html;
+      location /error404.html {
+      	       internal;
+      }
+}" > /etc/nginx/sites-available/default
+
+# restart nginx
+service nginx restart

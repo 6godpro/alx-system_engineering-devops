@@ -17,11 +17,6 @@ exec { '/var/www/html/index.html':
   command => '/bin/echo "Hello World!" | /bin/tee /var/www/html/index.html > /dev/null 2>&1',
 }
 
-# create an error404.html page
-exec { '/var/www/html/error404.html':
-  command => '/bin/echo "Ceci n\'est pas une page" | /bin/tee /var/www/html/error404.html > /dev/null 2>&1',
-}
-
 exec { 'server block config':
   command => '/bin/printf %s  "server {
       listen 80 default_server;

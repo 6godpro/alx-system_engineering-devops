@@ -20,20 +20,20 @@ exec { '/var/www/html/index.html':
 # configure nginx with a new server block
 exec { 'server block config':
   command => '/bin/printf %s  "server {
-      listen 80 default_server;
-      listen [::]:80 default_server;
+  listen 80 default_server;
+  listen [::]:80 default_server;
 
-      root /var/www/html;
-      index index.html index.htm;
+  root /var/www/html;
+  index index.html index.htm;
 
-      location /redirect_me {
-      	              return 301 https://www.google.com;
-      }
+  location /redirect_me {
+  	   return 301 https://www.google.com;
+  }
 
-      location / {
-      	              try_files \$uri \$uri/ =404;
-      }
-      add_header X-Served-By \"$hostname\";
+  location / {
+           try_files \$uri \$uri/ =404;
+  }
+  add_header X-Served-By $(hostname);
 }" > /etc/nginx/sites-available/default',
 }
 

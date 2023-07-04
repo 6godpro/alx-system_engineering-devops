@@ -15,7 +15,7 @@ printf "\nENABLED=1\n" >> /etc/default/haproxy
 printf "\n
        frontend myfrontend
        		bind :80
-		use_backend webservers
+		default_backend webservers
 
        backend webservers
        	       balance roundrobin

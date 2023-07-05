@@ -32,22 +32,10 @@ echo  "server {
       # disable error404.html page for external access
       location = /error404.html {
               root /var/www/html;
-      	            internal;
+      	      internal;
       }
+      add_header X-Server-By $HOSTNAME;
 }" > /etc/nginx/sites-available/default
-
-NR=$(grep -n "include /etc/nginx/sites-enabled/*" /etc/nginx/nginx.conf | cut -d ":" -f 1)
-NR=$((NR+1))
-
-grep "X-Served-By" /etc/nginx/nginx.conf > temp_file
-
-if [ "$(cat < temp_file | wc -c)" = 0 ]; then
-    sed -e "${NR}i\\" -e '\tadd_header X-Served-By \"$hostname\";' \
-	/etc/nginx/nginx.conf > temp_file
-    mv temp_file /etc/nginx/nginx.conf
-else
-    rm temp_file
-fi
 
 # restart nginx
 service nginx restart

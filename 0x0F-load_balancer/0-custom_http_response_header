@@ -34,7 +34,7 @@ echo  "server {
               root /var/www/html;
       	      internal;
       }
-      add_header X-Server-By $HOSTNAME;
+      add_header X-Served-By $HOSTNAME;
 }" > /etc/nginx/sites-available/default
 
 # restart nginx

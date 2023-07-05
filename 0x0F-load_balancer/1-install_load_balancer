@@ -10,9 +10,9 @@ add-apt-repository ppa:vbernat/haproxy-2.8 -y
 apt-get install haproxy=2.8.\* -y
 
 # Enable HAProxy to start by init script
-printf "\nENABLED=1\n" >> /etc/default/haproxy
+echo "ENABLED=1" >> /etc/default/haproxy
 
-printf "\n
+echo "
        frontend myfrontend
        		bind :80
 		default_backend webservers
@@ -21,6 +21,6 @@ printf "\n
        	       balance roundrobin
        	       server 176203-web-01 52.87.215.172
 	       server 176203-web-02 100.26.231.127
-\n" >> /etc/haproxy/haproxy.cfg
+" >> /etc/haproxy/haproxy.cfg
 
 service haproxy restart

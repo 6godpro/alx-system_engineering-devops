@@ -12,15 +12,32 @@ apt-get install haproxy=2.8.\* -y
 # Enable HAProxy to start by init script
 echo "ENABLED=1" >> /etc/default/haproxy
 
-echo "
-       frontend myfrontend
-       		bind :80
-		default_backend webservers
+mv /etc/haproxy/haproxy.cfg{,.default}
+touch /etc/haproxy/haproxy.cfg
 
-       backend webservers
-       	       balance roundrobin
-       	       server 176203-web-01 52.87.215.172
-	       server 176203-web-02 100.26.231.127
+printf %s "global
+       log 127.0.0.1 local0 notice
+       maxconn 2000
+       user haproxy
+       group haproxy
+
+defaults
+	log global
+	mode http
+	option httplog
+	option dontlognull
+	timeout	connect 5000
+	timeout client 10000
+        timeout server 10000
+
+frontend myfrontend
+	 bind :80
+	 default_backend webservers
+
+backend webservers
+	balance roundrobin
+	server 176203-web-01 52.87.215.172
+	server 176203-web-02 100.26.231.127
 " >> /etc/haproxy/haproxy.cfg
 
 service haproxy restart

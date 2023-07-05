@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# debugging a web server
+sed -i 's/sites-enabled/sites-available/g' /etc/nginx/nginx.conf
+service nginx start
+kill $(pgrep nginx | head -1)

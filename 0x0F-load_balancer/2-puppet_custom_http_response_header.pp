@@ -1,8 +1,8 @@
 # Configures a new server.
-
 # update machine
 exec { 'Update':
-  command => '/bin/apt-get update -y',
+  provider => shell,
+  command  => 'apt update -y',
 }
 
 # install Nginx
@@ -10,16 +10,20 @@ package { 'Nginx':
   ensure   => installed,
   name     => 'nginx',
   provider => 'apt',
+  require  => Exec['Update']
 }
 
 # create index.html page
 exec { '/var/www/html/index.html':
-  command => '/bin/echo "Hello World!" | /bin/tee /var/www/html/index.html > /dev/null 2>&1',
+  provider => shell,
+  command  => 'echo "Hello World!" | tee /var/www/html/index.html > /dev/null 2>&1',
+  require  => Package['Nginx'],
 }
 
 # configure nginx with a new server block
 exec { 'server block config':
-  command => '/bin/printf %s  "server {
+  provider => shell,
+  command  => 'printf %s  "server {
   listen 80 default_server;
   listen [::]:80 default_server;
 
@@ -35,9 +39,11 @@ exec { 'server block config':
   }
   add_header X-Served-By $HOSTNAME;
 }" > /etc/nginx/sites-available/default',
+  require  => Package['Nginx'],
 }
 
 # restart web server
 exec { 'restart':
-  command => '/sbin/service nginx restart',
+  command => '/etc/init.d/nginx restart',
+  require => Exec['server block config'],
 }

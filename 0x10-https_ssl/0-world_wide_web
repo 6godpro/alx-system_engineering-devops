@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Prints basic informations about subdomain.
+# USAGE: ./0-world_wide_web <domain> <subdomain>
+
+print_info() {
+    domain=$(dig "$2.$1" | grep -A1 ";; ANSWER SECTION" | tail -1)
+    echo "$2 $domain" | awk '{print "The subdomain "$1" is a "$5\
+	     	 	    	    " record and points to "$6}'
+}
+
+dig_info() {
+    if [ -z "$2" ]; then
+	print_info "$1" "www"
+	print_info "$1" "lb-01"
+	print_info "$1" "web-01"
+	print_info "$1" "web-02"
+    else
+	print_info "$1" "$2"
+    fi
+}
+
+dig_info "$1" "$2"

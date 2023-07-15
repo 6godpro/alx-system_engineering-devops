@@ -1,0 +1,33 @@
+global
+	log 127.0.0.1 local0 notice
+	maxconn 2000
+	tune.ssl.default-dh-param 2048
+	user haproxy
+	group haproxy
+
+defaults
+	log global
+	mode http
+	option httplog
+	option dontlognull
+	option http-server-close
+	timeout	connect 5000
+	timeout client 10000
+        timeout server 10000
+
+frontend myfrontend-http
+	bind :80
+	default_backend webservers
+
+frontend myfrontend-https
+	bind :443 ssl crt /etc/haproxy/certs/codeadiks.tech.pem
+        default_backend webservers
+
+backend webservers
+	balance roundrobin
+	redirect scheme https if !{ ssl_fc }
+	server 176203-web-01 52.87.215.172:80 check
+	server 176203-web-02 100.26.231.127:80 check
+
+backend letsencrypt-backend
+	server letsencrypt 127.0.0.1:54321

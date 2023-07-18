@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 # Displays User name
 
-if [ -n "$1" ]
-then
-	id -un "$1"
-else
-	whoami
-fi
+sudo -u "$1" whoami

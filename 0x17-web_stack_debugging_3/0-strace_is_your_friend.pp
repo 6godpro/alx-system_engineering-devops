@@ -1,3 +1,4 @@
+# fixes a typo error in the apache config
 exec { 'update':
   provider => 'shell',
   command  => 'apt update -y',

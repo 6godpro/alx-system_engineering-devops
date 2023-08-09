@@ -1,0 +1,18 @@
+# update mach
+exec { 'Update':
+  provider => 'shell',
+  command  => 'apt update -y',
+}
+
+-> exec { 'stop apache':
+  command => '/etc/init.d/apache2 stop',
+}
+
+-> exec { 'change train p in file':
+  provider => 'shell',
+  command  => "sed -i 's.phpp.php.g' /var/www/html/wp-settings.php"
+}
+
+-> exec { 'restart apache':
+  command => '/etc/init.d/apache2 restart',
+}

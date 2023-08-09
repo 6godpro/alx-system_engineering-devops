@@ -4,8 +4,7 @@ exec { 'update':
 }
 
 -> exec { 'stop':
-  provider => 'shell',
-  command  => 'service apache2 stop',
+  command => '/etc/init.d/apache2 stop',
 }
 
 -> exec { 'fix':
@@ -14,6 +13,5 @@ exec { 'update':
 }
 
 -> exec { 'restart':
-  provider => 'shell',
-  command  => 'service apache2 restart',
+  command => '/etc/init.d/apache2 restart',
 }

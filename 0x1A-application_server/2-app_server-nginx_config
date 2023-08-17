@@ -1,0 +1,27 @@
+server {
+	# liste on port 80 for ipv4 and v6 addresses.
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	# IP of the server
+	server_name 52.87.215.172;
+
+	# Add a custom HTTP response header variable
+	add_header X-Served-By 176203-web-01;
+
+	# Configure reverse proxy
+	# All request to NGINX are forwarded to the application server
+	location / {
+		include proxy_params;
+		proxy_pass http://127.0.0.1:5000;
+	}
+	
+	# 404 error page
+	error_page 404 /error404.html;
+
+        # Disable error404.html page for external access
+        location = /error404.html {
+		root /var/www/html;
+		internal;
+        }
+}

@@ -1,10 +1,5 @@
 # Re-configures the ULIMIT  NGINX
-exec { 'Set ULIMIT':
+exec { 'fix--for-nginx':
   provider => 'shell',
-  command  => "sed -i 's/-n 4096/-n 4097/g' /etc/default/nginx",
-}
-
--> exec { 'Restart':
-  provider => 'shell',
-  command  => 'service nginx restart',
+  command  => "sed -i 's.-n 15.-n 4096.g' /etc/default/nginx",
 }
